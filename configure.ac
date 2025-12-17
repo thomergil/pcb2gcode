@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.65])
+AC_PREREQ([2.71])
 AC_INIT([pcb2gcode], [2.5.0],
         [https://github.com/pcb2gcode/pcb2gcode/issues/new],
         [pcb2gcode],
@@ -18,7 +18,7 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
-AC_PROG_LIBTOOL
+LT_INIT
 
 # Check for C++11
 AX_CXX_COMPILE_STDCXX_14
@@ -74,7 +74,7 @@ AS_IF([test "x$HAVE_GEOS" = "xyes"],
       [AC_MSG_NOTICE([Found geos, is it geos++?])],
       [AC_MSG_NOTICE([Didn't find geos.])])
 
-AC_LANG_CPLUSPLUS
+AC_LANG([C++])
 if test "x$HAVE_GEOS" = "xyes"
 then
   saved_ldflags="${LDFLAGS}"
@@ -116,9 +116,6 @@ AC_SUBST([gerbv_CFLAGS_SYSTEM2], ['$(subst -I/usr/local/Cellar/gtk+/2.24.33/incl
 AC_SUBST([gerbv_CFLAGS_SYSTEM3], ['$(subst -I/usr/include/gtk-2.0,-isystem /usr/include/gtk-2.0,$(gerbv_CFLAGS_SYSTEM2))'])
 AC_SUBST([gerbv_CFLAGS_SYSTEM], ['$(subst -ID:/a/pcb2gcode/.local/include,-isystem D:/a/pcb2gcode/.local/include,$(gerbv_CFLAGS_SYSTEM3))'])
 
-# Checks for header files.
-AC_HEADER_STDC
-
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
 AC_C_INLINE
@@ -126,4 +123,5 @@ AC_C_INLINE
 # Checks for library functions.
 
 AC_CONFIG_FILES([Makefile])
-AC_OUTPUT(man/Makefile)
+AC_CONFIG_FILES([man/Makefile])
+AC_OUTPUT
